@@ -32,9 +32,10 @@ while(have_posts())
     $testarray = get_pages(array(
       'child_of'=> get_the_ID()
     ));
-    if ($theParent or $testArray){ ?>
+    if ($theParent or $testarray){ ?>
       <div class="page-links">
-        <h2 class="page-links__title"><a href="<?php echo get_permalink($theParent); ?>"></a><<?php echo get_the_title($theParent); ?></h2>
+        <h2 class="page-links__title"><a href="<?php echo get_permalink($theParent); ?>">
+        <?php echo get_the_title($theParent); ?></a></h2>
         <ul class="min-list">
             <?php
             if($theParent){
