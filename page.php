@@ -3,7 +3,7 @@ while(have_posts())
 {
  the_post(); ?>
 
-
+<!-- page banner content -->
     <div class="page-banner">
       <div class="page-banner__bg-image" style="background-image: url(<?php echo
       get_theme_file_uri('/images/ocean.jpg') ?>);"></div>
@@ -14,7 +14,7 @@ while(have_posts())
         </div>
       </div>
     </div>
-
+<!-- parent and child pages -->
     <div class="container container--narrow page-section">
       <?php
         $theParent =wp_get_post_parent_id(get_the_ID());
@@ -27,17 +27,31 @@ while(have_posts())
       <?php
         }
       ?>
-      
-    
+<!-- menu of child pages link   -->
+    <?php
+    $testarray = get_pages(array(
+      'child_of'=> get_the_ID()
+    ));
+    if ($theParent or $testArray){ ?>
       <div class="page-links">
-        <h2 class="page-links__title"><a href="#">About Us</a></h2>
+        <h2 class="page-links__title"><a href="<?php echo get_permalink($theParent); ?>"></a><<?php echo get_the_title($theParent); ?></h2>
         <ul class="min-list">
             <?php
-               
+            if($theParent){
+              $findchildrenOf =$theParent;
+            }else{
+              $findchildrenOf = get_the_ID();
+            }
+             wp_list_pages(array(
+              'title_li' => NULL,
+              'child_of' => $findchildrenOf,
+              'sort_column' => 'menu_order'
+             ));
             ?>
         </ul>
       </div>
-    
+      <?php } ?>
+
 
       <div class="generic-content">
         <?php the_content(); ?> 
